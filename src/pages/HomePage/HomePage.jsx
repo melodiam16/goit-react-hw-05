@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MovieList from "../../components/MovieList/MovieList";
+import css from "./HomePage.module.css";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -26,8 +27,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>Trending today</h1>
+    <div className={css.listFilms}>
+      <h1 className={css.title}>Trending today</h1>
       {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );

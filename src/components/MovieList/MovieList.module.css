@@ -1,0 +1,8 @@
+.navList {
+  display: flex;
+  gap: 20px;
+}
+
+.list {
+  text-align: left;
+}

@@ -1,14 +1,22 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import clsx from "clsx";
+import css from "./MovieDetailsPage.module.css";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Suspense } from "react";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  console.log(movieId);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const backLinkRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     const fetchDataId = async () => {
@@ -30,38 +38,59 @@ export default function MovieDetailsPage() {
     fetchDataId();
   }, [movieId]);
 
-  console.log(movie);
+  const getNavLinkClass = (props) => {
+    return clsx(css.link, props.isActive && css.active);
+  };
 
   return (
     <>
       {movie ? (
         <>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            width="200"
-          />
-          <h1>{movie.title}</h1>
-          <p>Overview</p>
-          <p>{movie.overview}</p>
-          <p>Genres</p>
-          <ul>
-            {movie.genres.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
+          <button
+            className={css.btn}
+            onClick={() => navigate(backLinkRef.current)}
+          >
+            🢀 Go back
+          </button>
+          <div className={css.boxContent}>
+            <div>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                width="200"
+              />
+            </div>
+            <div className={css.rightBoxContent}>
+              <h1 className={css.contentTitle}>{movie.title}</h1>
+              <p className={css.txtBold}>Overview</p>
+              <p>{movie.overview}</p>
+              <p className={css.txtBold}>Genres</p>
+              <ul className={css.genres}>
+                {movie.genres.map((genre) => (
+                  <li key={genre.id}>{genre.name}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </>
       ) : (
         <p>Loading...</p>
       )}
-      <ul>
+      <p className={css.title}>Additional information</p>
+      <ul className={css.addInfo}>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <NavLink to="cast" className={getNavLinkClass}>
+            Cast
+          </NavLink>
         </li>
         <li>
-          <NavLink to="reviews">Reviews</NavLink>
+          <NavLink to="reviews" className={getNavLinkClass}>
+            Reviews
+          </NavLink>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>LOADING SUBPAGE...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

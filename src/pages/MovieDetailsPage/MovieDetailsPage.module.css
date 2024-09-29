@@ -1,0 +1,59 @@
+.btn {
+  text-align: left;
+  background-color: transparent;
+  border: 1px solid #808080;
+  color: #808080;
+  padding: 3px 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 80px;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.boxContent {
+  display: flex;
+}
+
+.contentTitle {
+  font-size: 25px;
+}
+
+.rightBoxContent {
+  text-align: left;
+  padding-top: 20px;
+  margin-left: 15px;
+}
+
+.genres {
+  display: flex;
+  gap: 6px;
+  padding: 0;
+}
+
+.txtBold {
+  font-weight: bold;
+}
+
+.title {
+  text-align: left;
+}
+
+.addInfo {
+  text-align: left;
+  padding: 0;
+}
+
+.active {
+  color: orangered;
+}
+
+.navList {
+  display: flex;
+  gap: 20px;
+}

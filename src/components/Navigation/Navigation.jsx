@@ -8,8 +8,8 @@ const getNavLinkClass = (props) => {
 
 export default function Navigation() {
   return (
-    <nav>
-      <ul>
+    <nav className={css.navBox}>
+      <ul className={css.navList}>
         <li>
           <NavLink to="/" className={getNavLinkClass}>
             Home
